@@ -1,0 +1,100 @@
+.hero {
+  display: flex; /* Make the section a flex container */
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center; /* Center elements horizontally */
+  justify-content: center; /* Center elements vertically within the section (optional) */
+  text-align: center; /* Center text content within the section */ /* Optional if you want centered text without images */
+  background-color: #f5f5f5; /* Add a light gray background */
+  padding: 50px; /* Add some padding for spacing */
+}
+
+.hero h1 {
+  font-size: 50px; /* Increase heading size */
+  margin-bottom: -20px; /* Add some space after the heading */
+}
+
+h1{
+    font-size: 25px;
+}
+  
+.hero p {
+  font-size: 5em; /* Increase paragraph size */
+  margin-bottom: 20px; /* Add some space after the paragraph */
+  font-weight: lighter;
+}
+
+.hero img {
+  width: 50%; /* Set image width to 50% of the section */
+  max-width: 1000px; /* Set a maximum width for responsiveness */
+  border-radius: 5px; /* Add a slight border radius for aesthetics */
+}
+.navbar {
+  width: 100%;
+  background: #4b6947;
+  color: #fff;
+  height: 60px; /* Adjust height as needed */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main-menu {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex; /* Align items horizontally */
+}
+
+.main-menu li {
+  margin: 0 15px; /* Add margin between items */
+}
+
+.main-menu a {
+  color: #fff;
+  text-decoration: none;
+  display: flex; /* Ensure flex layout for icon and text */
+  align-items: center;
+  padding: 10px; /* Padding inside the link */
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+
+.main-menu a:hover {
+  background: #44a3ac; /* Background color on hover */
+}
+
+.main-menu i {
+  margin-right: 10px;
+  font-size: 1.5em; /* Adjust this value to change icon size */
+}
+
+.nav-text {
+  font-size: 16px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.logout {
+  margin-left: auto; /* Pushes logout to the right */
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex; /* Align items horizontally */
+}
+
+.logout li {
+  margin: 0 15px; /* Add margin between items */
+}
+
+.logout a {
+  color: rgb(249, 249, 249); /* Logout link color */
+  text-decoration: none;
+  display: flex; /* Ensure flex layout for icon and text */
+  align-items: center;
+  padding: 10px; /* Padding inside the link */
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+
+.logout a:hover {
+  background: #44a3ac; /* Background color on hover */
+}

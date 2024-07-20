@@ -1,0 +1,29 @@
+<div class="bg-img">
+<div class="signup-container">
+  <div class="signup-header">
+    <h1>Start Unlocking your potential! </h1>
+  </div>
+
+  <div class="signup-form">
+    <form (ngSubmit)="register()" #signupForm="ngForm">
+      <div class="input-container">
+        <div class="label">E-mail:</div>
+        <input type="email" id="email" name="email" placeholder="Enter your email" [(ngModel)]="email" required>
+      </div>
+
+      <div class="input-container">
+        <div class="label">Password:</div>
+        <input type="password" id="password" name="password" placeholder="Enter your password" [(ngModel)]="password" required>
+      </div>
+
+      <div class="footer">
+        <button type="submit" style="background-color: #007BFF; font-family: 'Inter', sans-serif; color: black;">Register</button>
+      </div>
+    </form>
+
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+    <div class="form-links">
+     <a routerLink="/login">Log in</a>
+    </div>
+  </div>
+</div>

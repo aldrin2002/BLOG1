@@ -1,0 +1,55 @@
+<div class="bg-img">
+<div class="login-container">
+  <div class="login-header">
+    <h1>Unlocking your potential, together!</h1>
+  </div>
+
+  <div class="login-form">
+    <form class="login-form" method="post" enctype="multipart/form-data" #loginForm="ngForm">
+      <div class="email">
+        <label for="email">Email:</label>
+        <input
+          type="email"
+          id="email"
+          name="EmailId"
+          [(ngModel)]="email"
+          placeholder="Enter Email"
+          required
+          autocomplete="email"
+        >
+      </div>
+      <div class="password">
+        <label for="password">Password:</label>
+        <input
+          [type]="hidePassword ? 'password' : 'text'"
+          id="password"
+          name="Password"
+          [(ngModel)]="password"
+          placeholder="Enter Password"
+          required
+          autocomplete="current-password"
+        >
+        <i
+          class="fa" 
+          [ngClass]="hidePassword ? 'fa-eye-slash' : 'fa-eye'"
+          id="pass-icon"
+          (click)="togglePasswordVisibility()"
+          aria-hidden="true"
+        ></i>
+      </div>
+      
+
+      <div class="error-message" *ngIf="loginPrompt">{{ loginPrompt }}</div>
+
+      <button
+        type="button"
+        (click)="login()"
+        style="background-color: #007BFF; font-family: 'Inter', sans-serif; color: black;"
+      >
+        Log in
+      </button>
+     <a href="#" (click)="onRegister($event)" style="color: #007BFF;">Sign up</a>
+
+    </form>
+  </div>
+</div>

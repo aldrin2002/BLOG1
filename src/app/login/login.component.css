@@ -1,0 +1,121 @@
+.bg-img {
+  background-image: url("/assets/GC.jpg");
+  background-size: cover; /* Ensures the entire container is covered */
+  background-position: center; /* Centers the image horizontally and vertically */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+  height: 100vh; /* Sets the container height to 100vh (viewport height) */
+  width: 100vw; /* Sets the container width to 100vw (viewport width) */
+  position: absolute; /* Positions the container on top of other elements */
+  top: 0; /* Sets the top position to 0 */
+  left: 0; /* Sets the left position to 0 */
+  z-index: -1; /* Ensures the background image is behind other elements */
+}
+.navbar {
+    width: 100%;
+    background: #ffffff;
+    padding: 10px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .login-container {
+    width: 350px;
+    padding: 20px;
+    background: #cc6565;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    margin: 120px auto 20px auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .login-header {
+    text-align: center;
+  }
+  
+  .login-header h1 {
+    margin: 0;
+    font-size: 24px;
+  }
+  
+  .login-form {
+    margin-top: 20px;
+    width: 100%; /* Ensure the form spans the container */
+    text-align: left; /* Reset text alignment for form contents */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+  }
+  
+  .login-form label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .login-form input {
+    width: calc(100% - 20px); /* Adjust width calculation */
+    max-width: 100%; /* Ensure inputs do not overflow */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  button {
+    width: 100%;
+    padding: 10px;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  button:hover {
+    background: #0056b3;
+  }
+  
+  .form-links {
+    margin-top: 15px;
+  }
+  
+  .form-links p {
+    margin: 5px 0;
+    font-size: 14px;
+  }
+  
+  .form-links a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .form-links a:hover {
+    text-decoration: underline;
+  }
+  
+  .login-tagline {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #333;
+  }
+  .password {
+    position: relative;
+    margin-bottom: 1rem;
+  }
+  
+ 
+  
+  .password .fa {
+    position: absolute;
+    right: 0.7rem;
+    top: 55%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+  
+  .center-text {
+    text-align: center;
+  }
+  

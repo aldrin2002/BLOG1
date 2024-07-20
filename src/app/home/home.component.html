@@ -1,0 +1,43 @@
+<nav class="navbar">
+  <ul class="main-menu">
+    <li>
+      <a [routerLink]="['/home']">
+        <i class="fa fa-home fa-2x"></i>
+        <span class="nav-text">Trav-Post</span>
+      </a>
+    </li>
+    <li>
+      <a [routerLink]="['/profile']">
+        <i class="fa fa-newspaper fa-2x"></i>
+        <span class="nav-text">Profile</span>
+      </a>
+    </li>
+    <li>
+      <a (click)="toggleAddContent()">
+        <i class="fa fa-plus fa-2x"></i>
+        <span class="nav-text">Add Content</span>
+      </a>
+    </li>
+  </ul>
+  <ul class="logout">
+    <li>
+      <a (click)="logout()">
+        <i class="fa fa-power-off fa-2x"></i>
+        <span class="nav-text">Logout</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+<section class="hero">
+  <h1>Starter - A Travel Blog Post</h1>
+  <p>Escape. Explore. See.</p>
+  <img src="/assets/gapo.jpg" alt="Olongapo City" />
+</section>
+
+<!-- Router outlet to display routed content -->
+<router-outlet></router-outlet>
+
+<!-- Conditionally display AddPostComponent -->
+<div *ngIf="showAddPost">
+  <app-add-post></app-add-post>
+</div>
