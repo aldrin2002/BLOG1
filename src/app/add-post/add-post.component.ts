@@ -1,4 +1,5 @@
 import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-post',
@@ -12,7 +13,7 @@ export class AddPostComponent implements AfterViewInit {
   // Variable to control the visibility of the modal
   isModalOpen = true; // Set to true or false based on your initial state
 
-  constructor() { }
+  constructor(public dialogRef: MatDialogRef<AddPostComponent>) { }
 
   ngAfterViewInit(): void {
     this.initializeEditor();
@@ -78,4 +79,10 @@ export class AddPostComponent implements AfterViewInit {
   closeModal(): void {
     this.isModalOpen = false;
   }
+  closeEditor() {
+    this.dialogRef.close(AddPostComponent); // Assuming 'dialogRef' holds a reference to the open dialog
+  }
+  
+  
+
 }

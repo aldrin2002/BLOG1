@@ -11,7 +11,6 @@ import Swal from 'sweetalert2';
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
-  username: string = '';
   email: string = '';
   password: string = '';
 errorMessage: any;
@@ -20,7 +19,7 @@ errorMessage: any;
 
   register() {
     // Check if the form fields are not empty
-    if (!this.username || !this.email || !this.password) {
+    if ( !this.email || !this.password) {
       Swal.fire({
         icon: 'error',
         title: 'Validation Error',
@@ -43,7 +42,6 @@ errorMessage: any;
 
     // Prepare data to send to the API
     const requestData = {
-      username: this.username,
       email: this.email,
       password: this.password
     };
@@ -61,7 +59,6 @@ errorMessage: any;
           confirmButtonText: 'OK'
         }).then(() => {
           // Reset the form fields after successful addition
-          this.username = '';
           this.email = '';
           this.password = '';
         });

@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataserviceService } from '../services/data.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { AddPostComponent } from '../add-post/add-post.component';
+
 
 @Component({
   selector: 'app-home',
@@ -15,7 +18,8 @@ export class HomeComponent {
   constructor(
     private router: Router,
     private ds: DataserviceService,
-    private snackbar: MatSnackBar
+    private snackbar: MatSnackBar,
+    private dialogRef: MatDialog
   ) { }
 
   selectSection(section: string) {
@@ -34,7 +38,12 @@ export class HomeComponent {
     // Redirect to the login page
     this.router.navigate(['/login']);
   }
-  toggleAddContent(): void {
+  /*toggleAddContent(): void {
     this.showAddPost = !this.showAddPost;
+  }*/
+  openDialog(){
+    this.dialogRef.open(AddPostComponent);
   }
+  
+  
 }

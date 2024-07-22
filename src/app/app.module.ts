@@ -35,7 +35,7 @@ import { LayoutComponent } from './layout/layout.component';
     MatDialogModule,
     MatIconModule,
     FormsModule,
-    QuillModule.forRoot() 
+    QuillModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

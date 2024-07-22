@@ -37,9 +37,7 @@ export class LoginComponent implements OnInit {
       } else {
         localStorage.setItem("email", res.payload.email);
         localStorage.setItem("user_id", res.payload.user_id);
-        localStorage.setItem("username", res.payload.username); // Store user's name
 
-        console.log("Username set in localStorage:", localStorage.getItem("username")); // Debug statement
         console.log("User_id set in localStorage:", localStorage.getItem("user_id")); // Debug statement
         console.log("Email set in localStorage:", localStorage.getItem("email")); // Debug statement
         this.snackbar.open("Welcome, " + localStorage.getItem("email") + "!", 'close', { duration: 3000 });
