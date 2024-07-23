@@ -1,5 +1,7 @@
 import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+import { DataserviceService } from '../services/data.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-add-post',
@@ -9,11 +11,14 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class AddPostComponent implements AfterViewInit {
 
   @ViewChild('editor') editor!: ElementRef<HTMLIFrameElement>;
+  title: string = ''; // Title input
+  imagePreview: string | ArrayBuffer | null = null; // Image preview
+  selectedImage: File | null = null; // File to upload
 
-  // Variable to control the visibility of the modal
-  isModalOpen = true; // Set to true or false based on your initial state
-
-  constructor(public dialogRef: MatDialogRef<AddPostComponent>) { }
+  constructor(
+    public dialogRef: MatDialogRef<AddPostComponent>,
+    private ds: DataserviceService // Inject the service to handle API requests
+  ) { }
 
   ngAfterViewInit(): void {
     this.initializeEditor();
@@ -36,6 +41,7 @@ export class AddPostComponent implements AfterViewInit {
               body { margin: 0; padding: 10px; }
               div { margin: 10px; }
               button { margin: 5px; }
+              img { max-width: 100%; height: auto; }
             </style>
           </head>
           <body contenteditable="true" style="height: 100%; margin: 0;">
@@ -75,24 +81,57 @@ export class AddPostComponent implements AfterViewInit {
     this.execCommand(command, colorValue);
   }
 
-  // Method to toggle the modal visibility
-  closeModal(): void {
-    this.isModalOpen = false;
+  onFileChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      this.selectedImage = input.files[0];
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagePreview = reader.result;
+      };
+      reader.readAsDataURL(this.selectedImage);
+    }
   }
 
-  closeEditor() {
-    this.dialogRef.close(AddPostComponent); // Assuming 'dialogRef' holds a reference to the open dialog
+  uploadImage(): Observable<any> {
+    if (this.selectedImage) {
+      const formData = new FormData();
+      formData.append('file', this.selectedImage);
+      return this.ds.uploadImage(formData);
+    }
+    return new Observable(observer => observer.complete());
   }
 
-  postContent() {
+  postContent(): void {
     const iframe = this.editor.nativeElement;
     const doc = iframe.contentDocument || iframe.contentWindow?.document;
 
     if (doc) {
       const content = doc.body.innerHTML;
-      // Handle the content (e.g., send it to a server, display it, etc.)
-      console.log(content);
-      alert('Content posted: ' + content);
+      const postData: any = { title: this.title, content };
+
+      if (this.selectedImage) {
+        this.uploadImage().subscribe(response => {
+          postData.imageUrl = response.imageUrl; // Update with your API response structure
+          this.ds.createPost(postData).subscribe(() => {
+            this.dialogRef.close();
+          }, error => {
+            console.error('Error posting content:', error);
+          });
+        }, error => {
+          console.error('Error uploading image:', error);
+        });
+      } else {
+        this.ds.createPost(postData).subscribe(() => {
+          this.dialogRef.close();
+        }, error => {
+          console.error('Error posting content:', error);
+        });
+      }
     }
+  }
+
+  closeEditor(): void {
+    this.dialogRef.close();
   }
 }

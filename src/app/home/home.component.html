@@ -28,6 +28,7 @@
     </li>
   </ul>
 </nav>
+
 <section class="hero">
   <h1>Starter - A Travel Blog Post</h1>
   <p>Escape. Explore. See.</p>
@@ -38,6 +39,4 @@
 <router-outlet></router-outlet>
 
 <!-- Conditionally display AddPostComponent -->
-<div *ngIf="showAddPost">
-  <app-add-post></app-add-post>
-</div>
+<app-add-post *ngIf="showAddPost"></app-add-post>

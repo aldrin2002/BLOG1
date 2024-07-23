@@ -1,10 +1,10 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
 <div class="add-content-modal">
   <h2>Start your Creativity here!</h2>
-  <div>
-    <button (click)="closeEditor()">Close</button>
+  <div class="title-input-container">
+    <label for="title-input">Title</label>
+    <input id="title-input" type="text" [(ngModel)]="title" placeholder="Enter Title" class="title-input" />
   </div>
-  <div>
+  <div class="toolbar">
     <!-- Toolbar -->
     <button (click)="execCommand('bold')" title="Bold"><i class="fa fa-bold"></i></button>
     <button (click)="execCommand('italic')" title="Italic"><i class="fa fa-italic"></i></button>
@@ -40,11 +40,25 @@
       <option value="3">Large</option>
       <option value="4">Extra Large</option>
     </select>
-    Font Color<input type="color" (change)="onColorChange($event, 'foreColor')" />
-    Highlight<input type="color" (change)="onColorChange($event, 'hiliteColor')" />
-  </div>
+    <div class="color-input-container">
+      <label>Font Color</label>
+      <input type="color" (change)="onColorChange($event, 'foreColor')" />
+    </div>
+    <div class="color-input-container">
+      <label>Highlight</label>
+      <input type="color" (change)="onColorChange($event, 'hiliteColor')" />
+    </div>
+    <!-- Image upload -->
+    <div class="file-upload">
+      <label for="image-upload" class="upload-label">Upload Image</label>
+      <input id="image-upload" type="file" (change)="onFileChange($event)" accept="image/*" class="file-input" />
+      <div *ngIf="imagePreview" class="image-preview-container">
+        <img [src]="imagePreview" alt="Image Preview" class="image-preview" />
+      </div>
+    </div>    
   <iframe #editor name="richTextField" style="width: 100%; height: 300px; border: 1px solid #ccc;"></iframe>
-  <div>
-    <button (click)="postContent()">Post</button>
+  <div class="modal-footer">
+    <button (click)="postContent()" class="post-button">Post</button>
+    <button (click)="closeEditor()" class="close-button">Close</button>
   </div>
 </div>
