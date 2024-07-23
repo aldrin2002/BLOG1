@@ -79,10 +79,20 @@ export class AddPostComponent implements AfterViewInit {
   closeModal(): void {
     this.isModalOpen = false;
   }
+
   closeEditor() {
     this.dialogRef.close(AddPostComponent); // Assuming 'dialogRef' holds a reference to the open dialog
   }
-  
-  
 
+  postContent() {
+    const iframe = this.editor.nativeElement;
+    const doc = iframe.contentDocument || iframe.contentWindow?.document;
+
+    if (doc) {
+      const content = doc.body.innerHTML;
+      // Handle the content (e.g., send it to a server, display it, etc.)
+      console.log(content);
+      alert('Content posted: ' + content);
+    }
+  }
 }
