@@ -1,61 +1,14 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
 <div class="add-content-modal">
   <h2>Start your Creativity here!</h2>
   <div class="title-input-container">
     <label for="title-input">Title</label>
     <input id="title-input" type="text" [(ngModel)]="title" placeholder="Enter Title" class="title-input" />
   </div>
-  <div class="toolbar">
-    <!-- Toolbar -->
-    <button (click)="execCommand('bold')" title="Bold"><i class="fa fa-bold"></i></button>
-    <button (click)="execCommand('italic')" title="Italic"><i class="fa fa-italic"></i></button>
-    <button (click)="execCommand('underline')" title="Underline"><i class="fa fa-underline"></i></button>
-    <button (click)="execCommand('strikeThrough')" title="Strike Through"><i class="fa fa-strikethrough"></i></button>
-    <button (click)="execCommand('justifyLeft')" title="Align Left"><i class="fa fa-align-left"></i></button>
-    <button (click)="execCommand('justifyCenter')" title="Align Center"><i class="fa fa-align-center"></i></button>
-    <button (click)="execCommand('justifyFull')" title="Justify"><i class="fa fa-align-justify"></i></button>
-    <button (click)="execCommand('cut')" title="Cut"><i class="fa fa-cut"></i></button>
-    <button (click)="execCommand('copy')" title="Copy"><i class="fa fa-copy"></i></button>
-    <button (click)="execCommand('indent')" title="Indent"><i class="fa fa-indent"></i></button>
-    <button (click)="execCommand('outdent')" title="Outdent"><i class="fa fa-outdent"></i></button>
-    <button (click)="execCommand('subscript')" title="Subscript"><i class="fa fa-subscript"></i></button>
-    <button (click)="execCommand('superscript')" title="Superscript"><i class="fa fa-superscript"></i></button>
-    <button (click)="execCommand('undo')" title="Undo"><i class="fa fa-undo"></i></button>
-    <button (click)="execCommand('redo')" title="Redo"><i class="fa fa-redo"></i></button>
-    <button (click)="execCommand('insertUnorderedList')" title="Unordered List"><i class="fa fa-list-ul"></i></button>
-    <button (click)="execCommand('insertOrderedList')" title="Ordered List"><i class="fa fa-list-ol"></i></button>
-    <button (click)="execCommand('insertParagraph')" title="Insert Paragraph"><i class="fa fa-paragraph"></i></button>
-    <button (click)="execCommand('insertHorizontalRule')" title="Horizontal Rule">Insert Horizontal Rule</button>
-    <select (change)="onFontChange($event)" title="Font">
-      <option value="Arial">Arial</option>
-      <option value="Comic Sans MS">Comic Sans MS</option>
-      <option value="Courier">Courier</option>
-      <option value="Georgia">Georgia</option>
-      <option value="Tahoma">Tahoma</option>
-      <option value="Times New Roman">Times New Roman</option>
-      <option value="Verdana">Verdana</option>
-    </select>
-    <select (change)="onFontSizeChange($event)" title="Font Size">
-      <option value="1">Small</option>
-      <option value="2">Medium</option>
-      <option value="3">Large</option>
-      <option value="4">Extra Large</option>
-    </select>
-    <div class="color-input-container">
-      <label>Font Color</label>
-      <input type="color" (change)="onColorChange($event, 'foreColor')" />
-    </div>
-    <div class="color-input-container">
-      <label>Highlight</label>
-      <input type="color" (change)="onColorChange($event, 'hiliteColor')" />
-    </div>
-    <!-- Image upload -->
-    <div class="file-upload">
-      <label for="image-upload" class="upload-label">Upload Image</label>
-      <input id="image-upload" type="file" (change)="onFileChange($event)" accept="image/*" class="file-input" />
-      <div *ngIf="imagePreview" class="image-preview-container">
-        <img [src]="imagePreview" alt="Image Preview" class="image-preview" />
-      </div>
-    </div>    
+  <div class="Created_by-input-container">
+    <label for="Created_by-input">Created By</label>
+    <input id="Created_by-input" type="text" [(ngModel)]="Created_by" placeholder="Enter Author" class="Created_by-input" />
+  </div> 
   <iframe #editor name="richTextField" style="width: 100%; height: 300px; border: 1px solid #ccc;"></iframe>
   <div class="modal-footer">
     <button (click)="postContent()" class="post-button">Post</button>

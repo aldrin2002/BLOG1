@@ -1,7 +1,6 @@
 import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { DataserviceService } from '../services/data.service';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-add-post',
@@ -9,11 +8,9 @@ import { Observable } from 'rxjs';
   styleUrls: ['./add-post.component.css']
 })
 export class AddPostComponent implements AfterViewInit {
-
   @ViewChild('editor') editor!: ElementRef<HTMLIFrameElement>;
   title: string = ''; // Title input
-  imagePreview: string | ArrayBuffer | null = null; // Image preview
-  selectedImage: File | null = null; // File to upload
+  Created_by: string = ''; // Author input
 
   constructor(
     public dialogRef: MatDialogRef<AddPostComponent>,
@@ -81,54 +78,31 @@ export class AddPostComponent implements AfterViewInit {
     this.execCommand(command, colorValue);
   }
 
-  onFileChange(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files[0]) {
-      this.selectedImage = input.files[0];
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.imagePreview = reader.result;
-      };
-      reader.readAsDataURL(this.selectedImage);
-    }
-  }
-
-  uploadImage(): Observable<any> {
-    if (this.selectedImage) {
-      const formData = new FormData();
-      formData.append('file', this.selectedImage);
-      return this.ds.uploadImage(formData);
-    }
-    return new Observable(observer => observer.complete());
-  }
-
   postContent(): void {
     const iframe = this.editor.nativeElement;
     const doc = iframe.contentDocument || iframe.contentWindow?.document;
 
-    if (doc) {
-      const content = doc.body.innerHTML;
-      const postData: any = { title: this.title, content };
-
-      if (this.selectedImage) {
-        this.uploadImage().subscribe(response => {
-          postData.imageUrl = response.imageUrl; // Update with your API response structure
-          this.ds.createPost(postData).subscribe(() => {
-            this.dialogRef.close();
-          }, error => {
-            console.error('Error posting content:', error);
-          });
-        }, error => {
-          console.error('Error uploading image:', error);
-        });
-      } else {
-        this.ds.createPost(postData).subscribe(() => {
-          this.dialogRef.close();
-        }, error => {
-          console.error('Error posting content:', error);
-        });
-      }
+    if (!doc) {
+      console.error('Could not access the iframe document.');
+      return;
     }
+
+    const content = doc.body.innerHTML;
+    const postData = { title: this.title, content, Created_by: this.Created_by, status: 'draft' };
+
+    this.ds.sendApiRequest('addpost', postData).subscribe({
+      next: (response: any) => {
+        console.log('Post created successfully:', response);
+        if (response && response.code === 200) {
+          this.dialogRef.close();
+        } else {
+          console.error('Failed to create post:', response.message);
+        }
+      },
+      error: (error: any) => {
+        console.error('Error posting content:', error);
+      }
+    });
   }
 
   closeEditor(): void {
