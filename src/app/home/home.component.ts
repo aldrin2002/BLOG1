@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataserviceService } from '../services/data.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { AddPostComponent } from '../add-post/add-post.component';
@@ -12,18 +11,16 @@ import { AddPostComponent } from '../add-post/add-post.component';
 })
 export class HomeComponent implements OnInit {
   selectedSection: string = 'home'; // Default section
-  showAddPost: boolean = false;
-  posts: any[] = []; // Array to hold posts
+  showAddPost: boolean = false; // Define the property
 
   constructor(
     private router: Router,
-    private ds: DataserviceService,
     private snackbar: MatSnackBar,
-    private dialog: MatDialog // Updated to 'dialog' for clarity
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
-    this.fetchPosts(); // Fetch posts when the component initializes
+    // Initialization code, if needed
   }
 
   selectSection(section: string): void {
@@ -32,9 +29,10 @@ export class HomeComponent implements OnInit {
 
   logout(): void {
     // Clear session data or tokens here if needed
-    // this.ds.logout(); // Uncomment and ensure logout method exists in DataserviceService
+    // Uncomment and ensure logout method exists in DataserviceService
+    // this.ds.logout(); 
 
-    // Optionally show a notification
+    // Show a notification
     this.snackbar.open('You have been logged out.', 'Close', {
       duration: 3000,
     });
@@ -45,18 +43,7 @@ export class HomeComponent implements OnInit {
 
   openDialog(): void {
     this.dialog.open(AddPostComponent).afterClosed().subscribe(() => {
-      this.fetchPosts(); // Refresh the posts after closing the dialog
+      // Optionally refresh or perform other actions after the dialog is closed
     });
-  }
-
-  fetchPosts(): void {
-    this.ds.getPosts().subscribe(
-      (posts: any[]) => {
-        this.posts = posts;
-      },
-      (error: any) => {
-        console.error('Error fetching posts:', error);
-      }
-    );
   }
 }

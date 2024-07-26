@@ -1,17 +1,42 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
-<div class="add-content-modal">
-  <h2>Start your Creativity here!</h2>
-  <div class="title-input-container">
+<form (ngSubmit)="postContentHandler()">
+  <div class="form-group">
     <label for="title-input">Title</label>
-    <input id="title-input" type="text" [(ngModel)]="title" placeholder="Enter Title" class="title-input" />
+    <input
+      name="title"
+      id="title-input"
+      type="text"
+      [(ngModel)]="postTitle"
+      placeholder="Enter Title"
+      class="form-control"
+      required
+    />
   </div>
-  <div class="Created_by-input-container">
-    <label for="Created_by-input">Created By</label>
-    <input id="Created_by-input" type="text" [(ngModel)]="Created_by" placeholder="Enter Author" class="Created_by-input" />
-  </div> 
-  <iframe #editor name="richTextField" style="width: 100%; height: 300px; border: 1px solid #ccc;"></iframe>
-  <div class="modal-footer">
-    <button (click)="postContent()" class="post-button">Post</button>
-    <button (click)="closeEditor()" class="close-button">Close</button>
+  <div class="form-group mt-3">
+    <label for="creator-input">Created By</label>
+    <input
+      name="creator"
+      id="creator-input"
+      type="text"
+      [(ngModel)]="postCreator"
+      placeholder="Enter Author"
+      class="form-control"
+      required
+    />
   </div>
-</div>
+  <div class="form-group mt-3">
+    <label for="content-input">Content</label>
+    <textarea
+      name="content"
+      id="content-input"
+      [(ngModel)]="postContent"
+      placeholder="Enter Content"
+      class="form-control"
+      rows="5"
+      required
+    ></textarea>
+  </div>
+  <div class="d-flex justify-content-between mt-4">
+    <button type="submit" class="btn btn-primary">Post</button>
+    <button type="button" (click)="closeEditor()" class="btn btn-secondary">Close</button>
+  </div>
+</form>

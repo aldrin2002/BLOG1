@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { QuillModule } from 'ngx-quill';
 import { AddPostComponent } from './add-post/add-post.component';
 import { LayoutComponent } from './layout/layout.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,12 +24,12 @@ import { LayoutComponent } from './layout/layout.component';
     RegisterComponent,
     HomeComponent,
     AddPostComponent,
-    LayoutComponent
+    LayoutComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule, 
+    AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     CommonModule,
@@ -38,6 +39,6 @@ import { LayoutComponent } from './layout/layout.component';
     QuillModule.forRoot(),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

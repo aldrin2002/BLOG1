@@ -1,57 +1,42 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataserviceService } from '../services/data.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-
+import { DataService } from '../data.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
-  standalone: false,
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit {
-  hidePassword: boolean = true;
-  email: any;
-  password: any;
-  loginPrompt: string = '';
+export class LoginComponent {
+  user = {
+    email: '',
+    password: '',
+  };
 
   constructor(
+    private dataService: DataService,
     private router: Router,
-    private ds: DataserviceService,
-    private snackbar: MatSnackBar
-  ) { }
+    private authService: AuthService
+  ) {}
 
-  ngOnInit(): void {
-  }
+  onSubmit() {
+    this.dataService.userLogin(this.user).subscribe(
+      (response) => {
+        if (response.status === 'success') {
+          // Assuming response contains user data inside user key
+          const userId = response.user.user_id;
+          this.authService.setUserId(userId);
 
-  async login() {
-    const userInfo = {
-      email: this.email,
-      password: this.password
-    };
-
-    await this.ds.sendApiRequest("login", userInfo).subscribe((res: any) => {
-      if (res.payload == null) {
-        this.snackbar.open("Incorrect Credentials", 'close', { duration: 1200 });
-      } else {
-        localStorage.setItem("email", res.payload.email);
-        localStorage.setItem("user_id", res.payload.user_id);
-
-        console.log("User_id set in localStorage:", localStorage.getItem("user_id")); // Debug statement
-        console.log("Email set in localStorage:", localStorage.getItem("email")); // Debug statement
-        this.snackbar.open("Welcome, " + localStorage.getItem("email") + "!", 'close', { duration: 3000 });
-        this.router.navigate(["/home"]);
+          this.router.navigate(['/home']);
+        } else {
+         
+        }
+      },
+      (error) => {
+        console.error('Error:', error);
+        
       }
-    });
-  }
-
-  togglePasswordVisibility() {
-    this.hidePassword = !this.hidePassword;
-  }
-
-  onRegister(event: Event): void {
-    event.preventDefault(); // Prevent default link behavior
-    this.router.navigate(['/register']); // Navigate to the register route
+    );
   }
 }

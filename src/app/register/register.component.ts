@@ -1,77 +1,58 @@
 import { Component } from '@angular/core';
-import { DataserviceService } from '../services/data.service';
-import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import Swal from 'sweetalert2';
-
+import { DataService } from '../data.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+  styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  email: string = '';
-  password: string = '';
-errorMessage: any;
+  user = {
+    name: '',
+    email: '',
+    password: ''
+  };
 
-  constructor(private ds: DataserviceService, private http: HttpClient, private router: Router,) {}
+  constructor(private dataService: DataService, private snackBar: MatSnackBar) { }
 
-  register() {
-    // Check if the form fields are not empty
-    if ( !this.email || !this.password) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Validation Error',
-        text: 'All fields are required!',
-        confirmButtonText: 'OK'
-      });
-      return;
-    }
-
-    // Check if the password is at least 10 characters long
-    if (this.password.length < 10) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Validation Error',
-        text: 'Password must be at least 10 characters long!',
-        confirmButtonText: 'OK'
-      });
-      return;
-    }
-
-    // Prepare data to send to the API
-    const requestData = {
-      email: this.email,
-      password: this.password
-    };
-
-    // Call the register method from the DataserviceService
-    this.ds.sendApiRequest('register', requestData).subscribe(
-      (response: any) => {
-        console.log(response); // Handle success response here
-
-        // Show a SweetAlert for successful registration
-        Swal.fire({
-          icon: 'success',
-          title: 'Registration Successful',
-          text: 'You have registered successfully!',
-          confirmButtonText: 'OK'
-        }).then(() => {
-          // Reset the form fields after successful addition
-          this.email = '';
-          this.password = '';
-        });
+  onSubmit() {
+    this.dataService.userRegister(this.user).subscribe(
+      response => {
+        if (response.status === 'success') {
+          this.snackBar.open('User registered successfully.', 'Close', {
+            duration: 3000,
+            verticalPosition: 'top',
+            horizontalPosition: 'center',
+            panelClass: ['snackbar-success']
+          });
+          this.resetForm();
+        } else {
+          this.snackBar.open('Failed to register user.', 'Close', {
+            duration: 3000,
+            verticalPosition: 'top',
+            horizontalPosition: 'center',
+            panelClass: ['snackbar-error']
+          });
+        }
       },
-      (error: any) => {
-        console.error(error); // Handle error response here
-        // Optionally, display an error message to the user
+      error => {
+        console.error('Error:', error);
+        this.snackBar.open('An error occurred.', 'Close', {
+          duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'center',
+          panelClass: ['snackbar-error']
+        });
       }
     );
   }
 
-
-  onLogin(): void {
-    this.router.navigate(['/login']); // Navigate to the register component/page
+  resetForm() {
+    this.user = {
+      name: '',
+      email: '',
+      password: ''
+    };
   }
 }

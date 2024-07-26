@@ -1,3 +1,13 @@
+.card-body.p-5 {
+  padding: 20px; /* Adjust padding to make it smaller */
+  max-width: 600px; /* Set a maximum width */
+  margin: 0 auto; /* Center the card horizontally */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for better visualization */
+  background-color: #fff; /* Optional: Ensure the background is white */
+  border-radius: 8px; /* Optional: Add rounded corners */
+  border: 1px solid #ccc; /* Optional: Add a border */
+}
+
 button {
   background-color: #f0f0f0;
   border: 1px solid #ccc;
@@ -62,11 +72,12 @@ h2 {
   border: 1px solid #ccc;
   border-radius: 4px;
 }
-.Created_by-input-container {
+
+.created-by-input-container {
   margin-bottom: 20px;
 }
 
-.Created_by-input-container label {
+.created-by-input-container label {
   display: block;
   font-size: 16px;
   font-weight: bold;
@@ -74,7 +85,7 @@ h2 {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.Created_by-input-container input {
+.created-by-input-container input {
   width: calc(100% - 16px);
   padding: 8px;
   font-size: 16px;
@@ -155,6 +166,7 @@ h2 {
   justify-content: space-between;
   margin-top: 20px;
 }
+
 /* Container for file upload */
 .file-upload {
   display: flex;
@@ -196,17 +208,41 @@ h2 {
 .image-preview-container {
   display: flex;
   align-items: center;
-  margin-left: 20px; /* Space between file input and preview */
-  overflow-x: auto; /* Scrollable container if the image is too wide */
+  margin-top: 10px;
+  flex-direction: column;
+  max-height: 150px; /* Set maximum height */
+  overflow: auto; /* Enable scrolling if content overflows */
 }
 
-/* Style for the image preview */
+/* Style for image previews */
 .image-preview {
-  max-width: 150px; /* Adjust the width as needed */
+  max-width: 100%;
   height: auto;
   display: block;
-  border: 1px solid #ddd;
+  margin-top: 10px;
   border-radius: 4px;
-  padding: 5px;
-  background-color: #fff; /* Background color for the image */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Hide the default image input */
+#image-upload {
+  display: none;
+}
+
+/* Custom button for file upload */
+.upload-button {
+  display: inline-block;
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  background-color: #e0e0e0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.upload-button:hover {
+  background-color: #d0d0d0;
 }

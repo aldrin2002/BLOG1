@@ -7,20 +7,13 @@ import { Observable } from 'rxjs';
 })
 export class DataserviceService {
 
+  public apiUrl = "http://localhost/BlogAPI/api";
   constructor(private http: HttpClient) { }
-
-  apiUrl = "http://localhost/Bloggy/api-bloggy/";
-  sendApiRequest(method:any, data:any) {
-    return <any>(this.http.post(this.apiUrl + method, btoa(JSON.stringify(data))));
-  }
-  receiveApiRequest(method: any) {
-    return this.http.get(this.apiUrl + method);
-  }
-  logout() {
-    localStorage.removeItem("user_id"); // Clear stored session information
-    localStorage.removeItem("username");
-    localStorage.removeItem("email");
-    // You can clear other session data if needed
+  userRegister(userData: any): Observable<any> {
+    return this.http.post('${this.apiUrl}/register', userData);
   }
 
+  userLogin(userData: any): Observable<any> {
+    return this.http.post('${this.apiUrl}/login', userData);
+  }
 }
