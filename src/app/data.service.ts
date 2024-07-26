@@ -17,7 +17,7 @@ export class DataService {
   userLogin(userData: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, userData);
   }
-  createPost(post: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/posts`, post);
+  createPost(addpost: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/addpost`, addpost);
   }
 }

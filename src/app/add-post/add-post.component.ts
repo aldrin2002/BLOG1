@@ -1,8 +1,7 @@
 import { Component, ViewChild, Inject } from '@angular/core';
-import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { QuillEditorComponent } from 'ngx-quill';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { AuthService } from '../auth.service';
 import { DataService } from '../data.service';
 
@@ -21,9 +20,9 @@ export class AddPostComponent {
   imageUrl: string = ''; // Field for image URL
   imagePreviewUrl: string = ''; // Field for image preview URL
   imageSelected: boolean = false; // Flag to check if an image has been selected
+  showModal: boolean = true; // Flag to control modal visibility
 
   constructor(
-    private router: Router,
     @Inject(DataService) private ds: DataService, // Use @Inject decorator
     private snackbar: MatSnackBar,
     private sanitizer: DomSanitizer,
@@ -48,7 +47,7 @@ export class AddPostComponent {
           this.snackbar.open('Post created successfully!', 'Close', {
             duration: 3000,
           });
-          this.router.navigate(['/home']);
+          this.closeEditor(); // Close modal on success
         } else {
           this.snackbar.open('Failed to create post. Please try again.', 'Close', {
             duration: 3000,
@@ -65,12 +64,19 @@ export class AddPostComponent {
   }
 
   closeEditor() {
-    console.log('Close button clicked'); // Debug log
-    this.router.navigate(['/home']).then(() => {
-      console.log('Navigation to home successful'); // Debug log
-    }).catch(err => {
-      console.error('Navigation error:', err); // Debug log
-    });
+    this.showModal = false;
   }
-  
+
+  handleImageChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files[0]) {
+      const file = input.files[0];
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.imagePreviewUrl = e.target.result;
+        this.imageSelected = true; // Update flag when image is selected
+      };
+      reader.readAsDataURL(file);
+    }
+  }
 }
