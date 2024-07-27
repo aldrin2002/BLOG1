@@ -20,4 +20,5 @@ export class DataService {
   createPost(addpost: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/addpost`, addpost);
   }
+  
 }

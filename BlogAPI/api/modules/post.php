@@ -50,7 +50,7 @@ class Post extends GlobalMethods
         }
     }
 
-    public function addPost($data)
+    public function addpost($data)
     {
         if (empty($data->title) || empty($data->content) || empty($data->status) || empty($data->user_id)) {
             return ['status' => 'error', 'message' => 'Title, content, status, and user ID are required.'];

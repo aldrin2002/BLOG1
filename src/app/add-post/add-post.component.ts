@@ -1,9 +1,7 @@
-import { Component, ViewChild, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { QuillEditorComponent } from 'ngx-quill';
-import { DomSanitizer } from '@angular/platform-browser';
-import { AuthService } from '../auth.service';
-import { DataService } from '../data.service';
+import { DataService } from '../data.service'; // Adjust path as needed
+import { AuthService } from '../auth.service'; // Adjust path as needed
 
 @Component({
   selector: 'app-add-post',
@@ -11,37 +9,44 @@ import { DataService } from '../data.service';
   styleUrls: ['./add-post.component.css']
 })
 export class AddPostComponent {
-  @ViewChild('editor') editor!: QuillEditorComponent;
-
   postTitle: string = '';
-  postCreator: string = '';
   postContent: string = ''; // Use string for raw HTML content
   postStatus: string = 'published';
+  postCreator: string = ''; // Added field for creator
   imageUrl: string = ''; // Field for image URL
   imagePreviewUrl: string = ''; // Field for image preview URL
   imageSelected: boolean = false; // Flag to check if an image has been selected
   showModal: boolean = true; // Flag to control modal visibility
 
   constructor(
-    @Inject(DataService) private ds: DataService, // Use @Inject decorator
+    private ds: DataService,
     private snackbar: MatSnackBar,
-    private sanitizer: DomSanitizer,
-    private authService: AuthService
+    private authService: AuthService // Inject AuthService
   ) {}
 
-  postContentHandler() {
+  onSubmit() {
+    // Get the user ID from AuthService
+    const userId = this.authService.getUserId();
+
+    if (!userId) {
+      this.snackbar.open('User is not logged in. Please log in and try again.', 'Close', {
+        duration: 3000,
+      });
+      return;
+    }
+
     // Create post object
-    const addPost = {
+    const addpost = {
       title: this.postTitle,
-      creator: this.postCreator,
       content: this.postContent,
       status: this.postStatus,
-      imageUrl: this.imageUrl,
-      userId: this.authService.getUserId() // Assuming userId is stored in AuthService
+      creator: this.postCreator,
+      filepath: this.imageUrl,
+      user_id: userId // Use the user ID from AuthService
     };
 
     // Send post request to backend
-    this.ds.createPost(addPost).subscribe(
+    this.ds.createPost(addpost).subscribe(
       (response: any) => {
         if (response.status === 'success') {
           this.snackbar.open('Post created successfully!', 'Close', {
@@ -65,18 +70,5 @@ export class AddPostComponent {
 
   closeEditor() {
     this.showModal = false;
-  }
-
-  handleImageChange(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files[0]) {
-      const file = input.files[0];
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.imagePreviewUrl = e.target.result;
-        this.imageSelected = true; // Update flag when image is selected
-      };
-      reader.readAsDataURL(file);
-    }
   }
 }
