@@ -16,6 +16,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { QuillModule } from 'ngx-quill';
 import { AddPostComponent } from './add-post/add-post.component';
 import { LayoutComponent } from './layout/layout.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { MyPostComponent } from './my-post/my-post.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import { LayoutComponent } from './layout/layout.component';
     HomeComponent,
     AddPostComponent,
     LayoutComponent,
+    MyPostComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,7 +41,9 @@ import { LayoutComponent } from './layout/layout.component';
     FormsModule,
     QuillModule.forRoot(),
   ],
-  providers: [],
+  providers: [
+    provideAnimationsAsync()
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,4 +1,4 @@
-body {
+/*body {
   margin: auto;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   overflow: auto;
@@ -66,4 +66,16 @@ body {
   100% {
       transform: translateX(1);
   }
+}*/
+.card {
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+}
+
+.card-body {
+  border-radius: 15px;
+}
+
+.btn-primary {
+  border-radius: 10px;
 }

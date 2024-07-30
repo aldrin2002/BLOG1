@@ -14,6 +14,8 @@ export class RegisterComponent {
     password: ''
   };
 
+  passwordFieldType: string = 'password'; // Default password field type
+
   constructor(private dataService: DataService, private snackBar: MatSnackBar) { }
 
   onSubmit() {
@@ -54,5 +56,9 @@ export class RegisterComponent {
       email: '',
       password: ''
     };
+  }
+
+  togglePasswordVisibility(): void {
+    this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
   }
 }

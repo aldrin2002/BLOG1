@@ -6,13 +6,14 @@ import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './auth.guard';
 import { AddPostComponent } from './add-post/add-post.component';
-
+import { MyPostComponent } from './my-post/my-post.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'add-post', component: AddPostComponent },
+  { path: 'add-post', component: AddPostComponent, canActivate: [AuthGuard] },
+  { path: 'my-post', component: MyPostComponent, canActivate: [AuthGuard] },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: '/login' } // 404 redirection
 ];

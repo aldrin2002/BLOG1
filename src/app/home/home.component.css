@@ -1,18 +1,25 @@
-.nav-link {
-  user-select: none; /* Prevent text selection */
+/* Ensure the post-card class is applied properly and provides a wider look */
+.post-card {
+  width: 100%;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.nav-link:hover {
-  background-color: rgba(255, 255, 255, 0.1); /* Add a subtle background color on hover */
-  text-decoration: none; /* Ensure no underline on hover */
+.post-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.nav-link i {
-  pointer-events: none; /* Prevent pointer events on the icon */
+.post-card .card-body {
+  background-color: #f8f9fa;
+  border-left: 5px solid #28a745; /* Green theme border */
 }
 
-.nav-link span {
-  pointer-events: none; /* Prevent pointer events on the text */
+.post-card .card-title {
+  color: #28a745; /* Green theme title */
+}
+
+.post-card .card-text {
+  color: #333;
 }
 
 .hero {
@@ -35,4 +42,37 @@
 
 .navbar-nav .nav-item .nav-link:hover {
   background-color: rgba(255, 255, 255, 0.2); /* Subtle hover effect */
+}
+
+.nav-link {
+  user-select: none; /* Prevent text selection */
+}
+
+.nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Add a subtle background on hover */
+  border-radius: 5px; /* Add slight rounding to the corners */
+}
+
+.dropdown-menu {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a shadow for depth */
+}
+
+.dropdown-item:hover {
+  background-color: #e9ecef; /* Slightly lighter background on hover */
+}
+
+.alert {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a shadow for depth */
+}
+
+footer {
+  background-color: #343a40; /* Dark background for footer */
+}
+
+footer a {
+  color: #ffffff; /* White text for footer links */
+}
+
+footer a:hover {
+  color: #28a745; /* Green text on hover for footer links */
 }
